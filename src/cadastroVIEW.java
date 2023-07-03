@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -150,6 +153,23 @@ public class cadastroVIEW extends javax.swing.JFrame {
 
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
+        
+        
+         
+
+        boolean condicao = produtodao.conectar();
+        if (condicao == false) {
+            JOptionPane.showMessageDialog(null, "Erro de conexão");
+        } else {
+            int resposta = produtodao.cadastrarProduto(produto);
+            if (resposta == 1) {
+                JOptionPane.showMessageDialog(null, "Dados incluidos com sucesso");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao tentar inserir dados");
+            }
+            produtodao.desconectar();
+        }
 
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
