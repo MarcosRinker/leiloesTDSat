@@ -41,7 +41,7 @@ public class ProdutosDAO {
 
     public int cadastrarProduto(ProdutosDTO produto) {
 
-        //conn = new conectaDAO().connectDB();
+        conn = new conectaDAO().connectDB();
         int status;
         try {
             st = conn.prepareStatement("INSERT INTO produtos VALUES(?,?,?,?)");
@@ -86,16 +86,16 @@ public class ProdutosDAO {
 
     }
 
-    public void venderProduto(ProdutosDTO produto) {
+    public void venderProduto(int id) {
 
-        String sql = "UPDATE produtos SET status=?, WHERE id=?";
+        String sql = "UPDATE produtos SET status=? WHERE id=?";
         try {
 
             PreparedStatement stmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
 
             stmt.setString(1, "Vendido");
-            stmt.setInt(2, produto.getId());
+            stmt.setInt(2, id);
 
             stmt.execute();
 

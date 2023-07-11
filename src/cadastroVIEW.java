@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author Adm
@@ -152,10 +151,6 @@ public class cadastroVIEW extends javax.swing.JFrame {
         produto.setStatus(status);
 
         ProdutosDAO produtodao = new ProdutosDAO();
-        produtodao.cadastrarProduto(produto);
-        
-        
-         
 
         boolean condicao = produtodao.conectar();
         if (condicao == false) {
@@ -170,6 +165,10 @@ public class cadastroVIEW extends javax.swing.JFrame {
             }
             produtodao.desconectar();
         }
+
+        cadastroNome.setText("");
+        cadastroValor.setText("");
+        cadastroNome.requestFocus();
 
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
