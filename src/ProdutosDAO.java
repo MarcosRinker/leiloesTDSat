@@ -94,7 +94,7 @@ public class ProdutosDAO {
             PreparedStatement stmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
 
-            stmt.setString(1, "vendido");
+            stmt.setString(1, "Vendido");
             stmt.setInt(2, produto.getId());
 
             stmt.execute();
@@ -103,6 +103,35 @@ public class ProdutosDAO {
             System.out.println("Erro ao mudar status: " + e.getMessage());
         }
     }
+    
+    
+    public List<ProdutosDTO> listarProdutosVendidos() {
+        //PEGA OS FILMES CADASTRADOS NO BANCO DE DAOS E RETORNA EM UIMA LISTA
+
+        String sql = "SELECT id, nome, valor, status FROM produtos WHERE status = Vendido ";
+
+        try {
+            PreparedStatement stmt = this.conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            List<ProdutosDTO> lista = new ArrayList<>();
+            while (rs.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+
+                produto.setId(rs.getInt("id"));
+                produto.setNome(rs.getString("nome"));
+                produto.setValor(rs.getInt("valor"));
+                produto.setStatus(rs.getString("status"));
+
+                lista.add(produto);
+
+            }
+            return lista;
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
 
     public void desconectar() {
         try {
