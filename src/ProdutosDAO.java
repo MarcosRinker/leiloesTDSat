@@ -23,8 +23,6 @@ public class ProdutosDAO {
     private ResultSet rs;
     private conectaDAO conexao;
 
-    ArrayList<ProdutosDTO> listagem = new ArrayList<>();
-
     public ProdutosDAO() {
         this.conexao = new conectaDAO();
         this.conn = this.conexao.connectDB();
@@ -68,6 +66,8 @@ public class ProdutosDAO {
         try {
             PreparedStatement stmt = this.conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
+
+            ArrayList<ProdutosDTO> listagem = new ArrayList<>();
             while (rs.next()) {
                 ProdutosDTO produtos = new ProdutosDTO();
 
@@ -103,18 +103,23 @@ public class ProdutosDAO {
             System.out.println("Erro ao mudar status: " + e.getMessage());
         }
     }
-    
-    
-    public List<ProdutosDTO> listarProdutosVendidos() {
-        //PEGA OS FILMES CADASTRADOS NO BANCO DE DAOS E RETORNA EM UIMA LISTA
 
-        String sql = "SELECT id, nome, valor, status FROM produtos WHERE status = Vendido ";
+    public ArrayList<ProdutosDTO> listarProdutosVendidos(String status) {
+
+        String sql = "SELECT * FROM produtos WHERE status LIKE ?";
 
         try {
+
             PreparedStatement stmt = this.conn.prepareStatement(sql);
+
+            stmt.setString(1, "%" + status + "%");
+
             ResultSet rs = stmt.executeQuery();
-            List<ProdutosDTO> lista = new ArrayList<>();
+
+            ArrayList<ProdutosDTO> lista = new ArrayList<>();
+
             while (rs.next()) {
+
                 ProdutosDTO produto = new ProdutosDTO();
 
                 produto.setId(rs.getInt("id"));
@@ -131,7 +136,6 @@ public class ProdutosDAO {
         }
 
     }
-
 
     public void desconectar() {
         try {
