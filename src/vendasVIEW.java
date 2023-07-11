@@ -35,7 +35,7 @@ public class vendasVIEW extends javax.swing.JFrame {
         tblListaProdutos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblListaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
